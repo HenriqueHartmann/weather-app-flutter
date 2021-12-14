@@ -41,6 +41,7 @@ class WeatherIsLoaded extends WeatherState {
   final _weather;
 
   WeatherIsLoaded(this._weather);
+  WeatherModel get getWeather => _weather;
 
   @override
   // TODO: implement props
@@ -54,11 +55,7 @@ class WeatherIsNotLoaded extends WeatherState {
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherRepo weatherRepo;
 
-  WeatherBloc(this.weatherRepo);
-
-  @override
-  // TODO: implement initialState
-  WeatherState get initialState => WeatherIsNotSearched();
+  WeatherBloc(this.weatherRepo) : super(WeatherIsNotSearched());
 
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async*{
