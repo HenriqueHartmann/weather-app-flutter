@@ -2,7 +2,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/blocs/weather_bloc.dart';
-import 'package:weather_app/components/showWeather_component.dart';
+import 'package:weather_app/components/show_weather_component.dart';
 
 class SearchPage extends StatelessWidget{
   const SearchPage({Key? key}) : super(key: key);

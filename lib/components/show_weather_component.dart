@@ -45,7 +45,7 @@ class ShowWeather extends StatelessWidget {
             height: 50,
             child: TextButton(
               style: TextButton.styleFrom(
-                primary: Colors.lightBlue,
+                backgroundColor: Colors.lightBlue,
                 shape: new RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
               onPressed: () {
