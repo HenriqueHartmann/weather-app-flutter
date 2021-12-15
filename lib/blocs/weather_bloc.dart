@@ -10,9 +10,9 @@ class WeatherEvent extends Equatable {
 }
 
 class FetchWeather extends WeatherEvent {
-  final _city;
-
   FetchWeather(this._city);
+
+  final String _city;
 
   @override
   // TODO: implement props
@@ -38,9 +38,11 @@ class WeatherIsLoading extends WeatherState {
 }
 
 class WeatherIsLoaded extends WeatherState {
-  final _weather;
 
   WeatherIsLoaded(this._weather);
+
+  final _weather;
+
   WeatherModel get getWeather => _weather;
 
   @override
@@ -51,7 +53,7 @@ class WeatherIsLoaded extends WeatherState {
 class WeatherIsNotLoaded extends WeatherState {
 
 }
-
+/*
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherRepo weatherRepo;
 
@@ -72,5 +74,30 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     } else if (event is ResetWeather) {
       yield WeatherIsNotSearched();
     }
+  }
+}
+*/
+
+class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
+  WeatherRepo weatherRepo;
+
+  WeatherBloc(this.weatherRepo) : super(WeatherIsNotSearched()) {
+    on<FetchWeather>(
+        (event, emit) async {
+          emit(WeatherIsLoading());
+
+          try {
+            WeatherModel weather = await weatherRepo.getWeather(event._city);
+            emit(WeatherIsLoaded(weather));
+          } catch(_) {
+            emit(WeatherIsNotLoaded());
+          }
+        }
+    );
+    on<ResetWeather>(
+        (event, emit) async {
+          emit(WeatherIsNotSearched());
+        }
+    );
   }
 }
