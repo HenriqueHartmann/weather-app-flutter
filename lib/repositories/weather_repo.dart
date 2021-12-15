@@ -1,23 +1,28 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'dart:convert' as convert;
 
 import 'package:weather_app/models/weather_model.dart';
 
 class WeatherRepo {
   Future<WeatherModel> getWeather(String city) async {
-    final result = await http.Client().get("https://api.openweathermap.org/data/2.5/weather?q=$city&APPID=24e5518adced091b9c6413f750c7bec7");
+    var url = Uri.https('https://api.openweathermap.org/',
+                        'data/2.5/weather',
+                        {
+                          'q': city,
+                          'APPID': '24e5518adced091b9c6413f750c7bec7'
+                        });
+    var response = await http.get(url);
 
-    if (result.statusCode != 200) {
+    if (response.statusCode != 200) {
       throw Exception();
     }
 
-    return parsedJson(result.body);
+    return parsedJson(response.body);
   }
 
   WeatherModel parsedJson(final response) {
-    final jsonDecoded = json.decode(response);
-    final jsonWeather = jsonDecoded["main"];
+    final jsonResponse = convert.json.decode(response);
 
-    return WeatherModel.fromJson(jsonWeather);
+    return WeatherModel.fromJson(jsonResponse["main"]);
   }
 }
