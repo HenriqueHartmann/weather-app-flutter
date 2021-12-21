@@ -19,7 +19,7 @@ class SearchPage extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-        if (!isKeyboard) Center(
+        if (!isKeyboard) const Center(
             child: SizedBox(
               child: FlareActor("assets/WorldSpin.flr", fit: BoxFit.contain, animation: "roll",),
               height: 300,
@@ -30,15 +30,15 @@ class SearchPage extends StatelessWidget{
             builder: (context, state) {
             if (state is WeatherIsNotSearched) {
               return Container(
-                padding: EdgeInsets.only(top: 32, left: 32, right: 32),
+                padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
                 child: Column(
                   children: <Widget>[
-                    Text("Search Weather", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500, color: Colors.white70),),
-                    Text("Instanly", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w200, color: Colors.white70),),
-                    SizedBox(height: 24,),
+                    const Text("Search Weather", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500, color: Colors.white70),),
+                    const Text("Instanly", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w200, color: Colors.white70),),
+                    const SizedBox(height: 24,),
                     TextFormField(
                       controller: cityController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.search, color: Colors.white70,),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -57,21 +57,21 @@ class SearchPage extends StatelessWidget{
                         hintText: "City Name",
                         hintStyle: TextStyle(color: Colors.white70),
                       ),
-                      style: TextStyle(color: Colors.white70),
+                      style: const TextStyle(color: Colors.white70),
                     ),
-                    SizedBox(height: 20,),
-                    Container(
+                    const SizedBox(height: 20,),
+                    SizedBox(
                       width: double.infinity,
                       height: 50,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.lightBlue,
-                          shape: new RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                         ),
                         onPressed: () {
                           weatherBloc.add(FetchWeather(cityController.text));
                         },
-                        child: Text("Search", style: TextStyle(color: Colors.white70, fontSize: 16),),
+                        child: const Text("Search", style: TextStyle(color: Colors.white70, fontSize: 16),),
                       ),
                     )
                   ],
@@ -79,13 +79,13 @@ class SearchPage extends StatelessWidget{
               );
             }
             else if (state is WeatherIsLoading) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             else if (state is WeatherIsLoaded) {
               return ShowWeather(state.getWeather, cityController.text);
             }
             else {
-              return Text("Error", style: TextStyle(color: Colors.white));
+              return const Text("Error", style: TextStyle(color: Colors.white));
             }
           })
         ],

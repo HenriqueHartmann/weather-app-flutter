@@ -41,7 +41,7 @@ class WeatherIsLoaded extends WeatherState {
 
   WeatherIsLoaded(this._weather);
 
-  final _weather;
+  final WeatherModel _weather;
 
   WeatherModel get getWeather => _weather;
 
